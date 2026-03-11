@@ -1,0 +1,1 @@
+- Improve uninstall mode. Thanks, ich_klau_bei_aldi, for the suggestion!
