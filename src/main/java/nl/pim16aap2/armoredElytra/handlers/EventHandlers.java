@@ -1,10 +1,8 @@
 package nl.pim16aap2.armoredElytra.handlers;
 
+import com.jeff_media.armorequipevent.ArmorEquipEvent;
+import com.jeff_media.armorequipevent.ArmorType;
 import nl.pim16aap2.armoredElytra.ArmoredElytra;
-import nl.pim16aap2.armoredElytra.lib.armorequip.ArmorEquipEvent;
-import nl.pim16aap2.armoredElytra.lib.armorequip.ArmorListener;
-import nl.pim16aap2.armoredElytra.lib.armorequip.ArmorType;
-import nl.pim16aap2.armoredElytra.lib.armorequip.DispenserArmorListener;
 import nl.pim16aap2.armoredElytra.nbtEditor.DurabilityManager;
 import nl.pim16aap2.armoredElytra.nbtEditor.NBTEditor;
 import nl.pim16aap2.armoredElytra.util.AllowedToWearEnum;
@@ -24,7 +22,6 @@ import org.bukkit.event.player.PlayerItemMendEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jspecify.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Objects;
@@ -79,13 +76,6 @@ public class EventHandlers implements Listener
         this.plugin = plugin;
         this.nbtEditor = nbtEditor;
         this.durabilityManager = durabilityManager;
-        initializeArmorEquipEvent();
-    }
-
-    private void initializeArmorEquipEvent()
-    {
-        Bukkit.getPluginManager().registerEvents(new ArmorListener(new ArrayList<>()), plugin);
-        Bukkit.getPluginManager().registerEvents(new DispenserArmorListener(), plugin);
     }
 
     // Make sure the player has the correct permission and that the item is not

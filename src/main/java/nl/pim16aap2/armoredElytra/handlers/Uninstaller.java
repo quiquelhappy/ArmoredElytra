@@ -1,5 +1,6 @@
 package nl.pim16aap2.armoredElytra.handlers;
 
+import com.jeff_media.armorequipevent.ArmorEquipEvent;
 import nl.pim16aap2.armoredElytra.ArmoredElytra;
 import nl.pim16aap2.armoredElytra.nbtEditor.NBTEditor;
 import nl.pim16aap2.armoredElytra.util.ArmorTier;
@@ -55,6 +56,21 @@ public class Uninstaller implements Listener
             return 1;
         }
         return 0;
+    }
+
+    @EventHandler
+    public void onEquip(ArmorEquipEvent e)
+    {
+        if (nbtEditor.getArmorTierFromElytra(e.getNewArmorPiece()) != ArmorTier.NONE)
+        {
+            e.setCancelled(true);
+            // Setting to AIR (or null, for that matter) doesn't appear to remove it in all situations,
+            // so we also just remove them from the player's inventory to be sure.
+            e.setNewArmorPiece(AIR);
+            removeArmoredElytras(e.getPlayer().getInventory());
+            plugin.messagePlayer(e.getPlayer(), ChatColor.RED,
+                                 "Armored elytras are no longer allowed and have been removed from your inventory!");
+        }
     }
 
     @EventHandler
