@@ -18,12 +18,13 @@
         <version.maven-source>3.3.1</version.maven-source>
         <version.maven-gpg>3.2.8</version.maven-gpg>
 
-        <version.semver4j>5.7.0</version.semver4j>
-        <version.spigot>1.20.6-R0.1-SNAPSHOT</version.spigot>
+        <version.armor-equip-event>1.0.3</version.armor-equip-event>
         <version.bstats>3.0.2</version.bstats>
         <version.checkstyle>10.17.0</version.checkstyle>
-        <version.mockito>5.17.0</version.mockito>
         <version.junit>5.13.4</version.junit>
+        <version.mockito>5.17.0</version.mockito>
+        <version.semver4j>5.7.0</version.semver4j>
+        <version.spigot>1.20.6-R0.1-SNAPSHOT</version.spigot>
     </properties>
 
     <repositories>
@@ -67,6 +68,13 @@
             <artifactId>checkstyle</artifactId>
             <version>${version.checkstyle}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.jeff-media</groupId>
+            <artifactId>armor-equip-event</artifactId>
+            <version>${version.armor-equip-event}</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -127,6 +135,10 @@
                         <relocation>
                             <pattern>org.semver4j</pattern>
                             <shadedPattern>nl.pim16aap2.armoredElytra.lib.semver4j</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.jeff_media.armorequipevent</pattern>
+                            <shadedPattern>nl.pim16aap2.armoredElytra.lib.armorequipevent</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>

@@ -1,5 +1,6 @@
 package nl.pim16aap2.armoredElytra;
 
+import com.jeff_media.armorequipevent.ArmorEquipEvent;
 import nl.pim16aap2.armoredElytra.handlers.AbstractSmithingTableListener;
 import nl.pim16aap2.armoredElytra.handlers.AnvilHandler;
 import nl.pim16aap2.armoredElytra.handlers.CommandHandler;
@@ -91,6 +92,8 @@ public class ArmoredElytra extends JavaPlugin implements Listener
         Bukkit.getPluginManager().registerEvents(new EventHandlers(this, nbtEditor, durabilityManager), this);
         Objects.requireNonNull(getCommand("ArmoredElytra"), "ArmoredElytra base command not found!")
                .setExecutor(new CommandHandler(this, nbtEditor, durabilityManager));
+
+        ArmorEquipEvent.registerListener(this);
 
         // Load the plugin normally if not in uninstall mode.
         if (!config.uninstallMode())

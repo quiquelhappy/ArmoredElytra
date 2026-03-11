@@ -74,7 +74,19 @@ class SmithingTableRecipeListener extends AbstractSmithingTableListener implemen
     {
         super(plugin, nbtEditor, durabilityManager, config);
 
-        registerRecipes();
+        try
+        {
+            registerRecipes();
+        }
+        catch (Exception e)
+        {
+            plugin.myLogger(
+                Level.SEVERE,
+                "Failed to register smithing table recipes! " +
+                    "This may cause issues with the smithing table functionality. " +
+                    "Please report this to the developer!");
+            plugin.myLogger(Level.SEVERE, Util.exceptionToString(e));
+        }
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -225,7 +237,7 @@ class SmithingTableRecipeListener extends AbstractSmithingTableListener implemen
      */
     private void registerCraftingRecipe(ArmorTier tier)
     {
-        final NamespacedKey key = new NamespacedKey(plugin, "st_recipe_" + tier.name().toLowerCase(Locale.ROOT));
+        final NamespacedKey key = getNamespacedKeyForCraftingRecipe(tier);
 
         final @Nullable Material chestPlateMaterial = Util.tierToChestPlate(tier);
         if (chestPlateMaterial == null)
@@ -234,6 +246,11 @@ class SmithingTableRecipeListener extends AbstractSmithingTableListener implemen
         final RecipeChoice chestPlate = new RecipeChoice.MaterialChoice(chestPlateMaterial);
 
         registerCraftingRecipe(key, null, chestPlate);
+    }
+
+    private NamespacedKey getNamespacedKeyForCraftingRecipe(ArmorTier tier)
+    {
+        return new NamespacedKey(plugin, "st_recipe_" + tier.name().toLowerCase(Locale.ROOT));
     }
 
     /**
