@@ -2,7 +2,6 @@ package nl.pim16aap2.armoredElytra.handlers;
 
 import com.jeff_media.armorequipevent.ArmorEquipEvent;
 import com.jeff_media.armorequipevent.ArmorType;
-import com.tcoded.folialib.impl.PlatformScheduler;
 import nl.pim16aap2.armoredElytra.ArmoredElytra;
 import nl.pim16aap2.armoredElytra.nbtEditor.DurabilityManager;
 import nl.pim16aap2.armoredElytra.nbtEditor.NBTEditor;
@@ -70,14 +69,12 @@ public class EventHandlers implements Listener
     private final ArmoredElytra plugin;
     private final NBTEditor nbtEditor;
     private final DurabilityManager durabilityManager;
-    private final PlatformScheduler scheduler;
 
-    public EventHandlers(ArmoredElytra plugin, NBTEditor nbtEditor, DurabilityManager durabilityManager, PlatformScheduler scheduler)
+    public EventHandlers(ArmoredElytra plugin, NBTEditor nbtEditor, DurabilityManager durabilityManager)
     {
         this.plugin = plugin;
         this.nbtEditor = nbtEditor;
         this.durabilityManager = durabilityManager;
-        this.scheduler = scheduler;
     }
 
     // Make sure the player has the correct permission and that the item is not
@@ -147,7 +144,7 @@ public class EventHandlers implements Listener
 
         // Apply it again a tick later, so we can override the durability of the armored elytra without
         // interfering with the player XP change event that depends on the success of this one.
-        this.scheduler.runAtEntityLater(e.getPlayer(), () ->
+        this.plugin.getFoliaLib().getScheduler().runAtEntityLater(e.getPlayer(), () ->
             durabilityManager.setDurability(e.getItem(), newDurability, armorTier), 1);
     }
 

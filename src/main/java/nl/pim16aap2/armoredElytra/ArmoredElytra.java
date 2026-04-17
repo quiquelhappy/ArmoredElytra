@@ -93,7 +93,7 @@ public class ArmoredElytra extends JavaPlugin implements Listener
                      "Stats disabled, not loading stats :(... Please consider enabling it! I am a simple man, " +
                          "seeing higher user numbers helps me stay motivated!");
 
-        Bukkit.getPluginManager().registerEvents(new EventHandlers(this, nbtEditor, durabilityManager, foliaLib.getScheduler()), this);
+        Bukkit.getPluginManager().registerEvents(new EventHandlers(this, nbtEditor, durabilityManager), this);
         Objects.requireNonNull(getCommand("ArmoredElytra"), "ArmoredElytra base command not found!")
                .setExecutor(new CommandHandler(this, nbtEditor, durabilityManager));
 
@@ -251,6 +251,11 @@ public class ArmoredElytra extends JavaPlugin implements Listener
     public UpdateManager getUpdateManager()
     {
         return updateManager;
+    }
+
+    public FoliaLib getFoliaLib()
+    {
+        return foliaLib;
     }
 
     public static ArmoredElytra getInstance()
