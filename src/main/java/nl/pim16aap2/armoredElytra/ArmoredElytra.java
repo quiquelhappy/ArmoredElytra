@@ -1,6 +1,7 @@
 package nl.pim16aap2.armoredElytra;
 
 import com.jeff_media.armorequipevent.ArmorEquipEvent;
+import com.tcoded.folialib.FoliaLib;
 import nl.pim16aap2.armoredElytra.handlers.AbstractSmithingTableListener;
 import nl.pim16aap2.armoredElytra.handlers.AnvilHandler;
 import nl.pim16aap2.armoredElytra.handlers.CommandHandler;
@@ -48,6 +49,7 @@ public class ArmoredElytra extends JavaPlugin implements Listener
     private UpdateManager updateManager;
 
     private NBTEditor nbtEditor;
+    private FoliaLib foliaLib;
 
     public ArmoredElytra()
     {
@@ -63,6 +65,8 @@ public class ArmoredElytra extends JavaPlugin implements Listener
             setEnabled(false);
             return;
         }
+
+        foliaLib = new FoliaLib(this);
 
         nbtEditor = new NBTEditor();
 
@@ -89,7 +93,7 @@ public class ArmoredElytra extends JavaPlugin implements Listener
                      "Stats disabled, not loading stats :(... Please consider enabling it! I am a simple man, " +
                          "seeing higher user numbers helps me stay motivated!");
 
-        Bukkit.getPluginManager().registerEvents(new EventHandlers(this, nbtEditor, durabilityManager), this);
+        Bukkit.getPluginManager().registerEvents(new EventHandlers(this, nbtEditor, durabilityManager, foliaLib.getScheduler()), this);
         Objects.requireNonNull(getCommand("ArmoredElytra"), "ArmoredElytra base command not found!")
                .setExecutor(new CommandHandler(this, nbtEditor, durabilityManager));
 
@@ -262,5 +266,11 @@ public class ArmoredElytra extends JavaPlugin implements Listener
             return "NULL";
         }
         return armorTierNames.get(tier).longName();
+    }
+
+    @Override
+    public void onDisable() {
+        super.onDisable();
+        foliaLib.getScheduler().cancelAllTasks();
     }
 }
