@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class LoginHandler implements Listener
 {
@@ -25,13 +24,7 @@ public class LoginHandler implements Listener
         Player player = event.getPlayer();
         if (player.hasPermission("armoredElytra.admin"))
             // Slight delay so the player actually receives the message;
-            new BukkitRunnable()
-            {
-                @Override
-                public void run()
-                {
-                    plugin.messagePlayer(player, ChatColor.AQUA, message);
-                }
-            }.runTaskLater(plugin, 10);
+            plugin.getFoliaLib().getScheduler().runLater(() ->
+                plugin.messagePlayer(player, ChatColor.AQUA, message), 10L);
     }
 }
