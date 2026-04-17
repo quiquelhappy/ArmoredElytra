@@ -1,8 +1,7 @@
 package nl.pim16aap2.armoredElytra.util;
 
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import nl.pim16aap2.armoredElytra.ArmoredElytra;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.util.logging.Level;
 
@@ -15,7 +14,7 @@ public final class UpdateManager
     private boolean checkForUpdates = false;
 
     private final UpdateChecker updater;
-    private BukkitTask updateRunner = null;
+    private WrappedTask updateRunner = null;
 
     public UpdateManager(final ArmoredElytra plugin, final int pluginID)
     {
@@ -63,15 +62,9 @@ public final class UpdateManager
         {
             // Run the UpdateChecker regularly.
             if (updateRunner == null)
-                updateRunner = new BukkitRunnable()
-                {
-                    @Override
-                    public void run()
-                    {
-                        checkForUpdates();
-                    }
-                    // Run immediately, then every 12 hours.
-                }.runTaskTimer(plugin, 0L, 864000L);
+                // Run immediately, then every 12 hours.
+                updateRunner = plugin.getFoliaLib().getScheduler().runTimer(
+                    this::checkForUpdates, 0L, 864000L);
         }
         else
         {
