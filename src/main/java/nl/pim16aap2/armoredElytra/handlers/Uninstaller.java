@@ -13,7 +13,6 @@ import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
-import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ListIterator;
 
@@ -87,20 +86,16 @@ public class Uninstaller implements Listener
     public void onPlayerLogin(PlayerLoginEvent event)
     {
         // Slight delay so the inventory has time to get loaded.
-        new BukkitRunnable()
+        plugin.getFoliaLib().getScheduler().runAtEntityLater(event.getPlayer(), () ->
         {
-            @Override
-            public void run()
-            {
-                Inventory inv = event.getPlayer().getInventory();
+            Inventory inv = event.getPlayer().getInventory();
 
-                int removed = removeArmoredElytraFromArmorSlot(event.getPlayer());
-                removed += removeArmoredElytras(inv);
+            int removed = removeArmoredElytraFromArmorSlot(event.getPlayer());
+            removed += removeArmoredElytras(inv);
 
-                if (removed != 0)
-                    plugin.messagePlayer(event.getPlayer(), ChatColor.RED,
-                                         "Removed " + removed + " armored elytras from your inventory!");
-            }
-        }.runTaskLater(plugin, 20);
+            if (removed != 0)
+                plugin.messagePlayer(event.getPlayer(), ChatColor.RED,
+                                     "Removed " + removed + " armored elytras from your inventory!");
+        }, 20L);
     }
 }
