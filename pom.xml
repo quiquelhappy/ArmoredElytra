@@ -32,6 +32,10 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>tcoded-releases</id>
+            <url>https://repo.tcoded.com/releases</url>
+        </repository>
     </repositories>
 
     <pluginRepositories>
@@ -74,6 +78,13 @@
             <groupId>com.jeff-media</groupId>
             <artifactId>armor-equip-event</artifactId>
             <version>${version.armor-equip-event}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.tcoded</groupId>
+            <artifactId>FoliaLib</artifactId>
+            <version>0.5.1</version>
             <scope>compile</scope>
         </dependency>
 
@@ -139,6 +150,10 @@
                         <relocation>
                             <pattern>com.jeff_media.armorequipevent</pattern>
                             <shadedPattern>nl.pim16aap2.armoredElytra.lib.armorequipevent</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>com.tcoded.folialib</pattern>
+                            <shadedPattern>nl.pim16aap2.armoredElytra.lib.folialib</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
