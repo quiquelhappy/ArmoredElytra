@@ -4,6 +4,7 @@ version: ${project.version}
 author: pim16aap2
 softdepend: [ AdvancedEnchantments ]
 api-version: 1.16
+folia-supported: true
 commands:
   ArmoredElytra:
     description: Give an armored elytra of the specified tier.
